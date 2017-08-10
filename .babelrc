@@ -1,14 +1,4 @@
 {
-  "presets": [
-    // http://babeljs.io/docs/plugins/preset-es2015/#modules
-    // 默认将es6选以commonJs类型进行转化
-    // ["es2015", 
-    //  { "modules": false }
-    // ],
-    "es2015",
-    "react",
-    "stage-0"
-  ],
   "env":{
     "production": {
       "presets": [

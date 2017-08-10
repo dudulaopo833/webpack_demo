@@ -1,16 +1,10 @@
-const webpack = require('webpack');
-const path = require('path');
-const config = require('../config.js');
-const codeDir = "src";
-const webpackOutputPath = path.resolve(codeDir, 'dist/simple_entry_hot_replace_with_hotloader');
-const buildPath = path.resolve(config.root,webpackOutputPath);
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+`node webpack.config.simple_entry_hot_replace_with_hotloaderserver/server.js`
+```diff
 const webpackConfig = {
   // 入口配置
   entry: [
     'react-hot-loader/patch',
-    // 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
++    'webpack-hot-middleware/client',  //用于启动hmr
     './src/React_hot_loader/index.js'
   ],
   // Webpack config options on how to obtain modules
@@ -24,16 +18,6 @@ const webpackConfig = {
     path: buildPath, // 输出文件路径
     filename: 'app.js', // 输出文件名字
     chunkFilename: '[chunkhash].js', // chunk文件名字
-  },
-  devServer: {
-    host: 'localhost',
-    port: 4000,
-
-    historyApiFallback: true,
-    // respond to 404s with index.html
-
-    hot: true,
-    // enable HMR on the server
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -57,8 +41,6 @@ const webpackConfig = {
       {
         test: /\.js$/,
         use: [
-          // react-hot-loader 3.0 写法
-          'react-hot-loader/webpack',
            'babel-loader',
         ],
         exclude: /node_modules/,
@@ -96,5 +78,31 @@ const webpackConfig = {
     ],
   },
 };
+```
 
-module.exports = webpackConfig;
+```diff
+
+// 热更新
++app.use(require('webpack-dev-middleware')(compiler, {
++  noInfo: true,
++  hot: true,
++  historyApiFallback: true
++}));
+
++app.use(require("webpack-hot-middleware")(compiler));
++
++app.get('*', (request, response) => {
++  response.sendFile(path.resolve(defaultConfig.root, 'index.html'));
++});
+
+// 启动服务
+app.listen("4000", '0.0.0.0', (err) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(' start server at port ' +'4000');
+});
+
+
+```

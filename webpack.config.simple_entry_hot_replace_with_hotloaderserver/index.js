@@ -1,35 +1,16 @@
-### 1.如何启动
-`webpack-dev-server --config webpack.config.simple_entry_hot_replace_with_hotloader`
-
-不能和这个一起用new HtmlWebpackPlugin({ 
-        // 输出文件名字及路径
-      filename: 'index.html',
-      template: 'index.html'
-    }),
-
-### 2.如何配置
-
-#### webpack config 配置
-  * 入口配置
-  * 添加devServer配置
-  * 添加HotModuleReplacementPlugin插件
-  * 除去HtmlWebpackPlugin
-
-### 源码实现
-#### webpack config源码
-```diff
 const webpack = require('webpack');
 const path = require('path');
 const config = require('../config.js');
 const codeDir = "src";
-const webpackOutputPath = path.resolve(codeDir, 'dist/simple_entry_hot_replace_with_hotloader');
+const webpackOutputPath = path.resolve(codeDir, 'dist/simple_entry_hot_replace_with_hotloaderserver');
 const buildPath = path.resolve(config.root,webpackOutputPath);
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const webpackConfig = {
   // 入口配置
   entry: [
-+    'react-hot-loader/patch',
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client', //用于启动hmr
     './src/React_hot_loader/index.js'
   ],
   // Webpack config options on how to obtain modules
@@ -44,18 +25,8 @@ const webpackConfig = {
     filename: 'app.js', // 输出文件名字
     chunkFilename: '[chunkhash].js', // chunk文件名字
   },
-+  devServer: {
-+    host: 'localhost',
-+    port: 4000,
-+
-+    historyApiFallback: true,
-+    // respond to 404s with index.html
-
-+    hot: true,
-+    // enable HMR on the server
-+  },
   plugins: [
-+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     // 防止加载所有地区时刻
     // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // Webpack 2以后内置
@@ -63,12 +34,12 @@ const webpackConfig = {
     // 碰到错误warning但是不停止编译
     new webpack.NoEmitOnErrorsPlugin(), 
     // 生成html文件
--    // new HtmlWebpackPlugin({ 
--    //     // 输出文件名字及路径
--    //   filename: 'index.html',
--    //   template: 'index.html'
--    // }),
-     new webpack.NamedModulesPlugin(),
+    // new HtmlWebpackPlugin({ 
+    //     // 输出文件名字及路径
+    //   filename: 'index.html',
+    //   template: 'index.html'
+    // }),
+    // new webpack.NamedModulesPlugin(),
   
   ],
   module: {
@@ -76,6 +47,7 @@ const webpackConfig = {
       {
         test: /\.js$/,
         use: [
+          'react-hot-loader/webpack',
            'babel-loader',
         ],
         exclude: /node_modules/,
@@ -115,43 +87,3 @@ const webpackConfig = {
 };
 
 module.exports = webpackConfig;
-
-```
-
-#### src源码
-
-```js
-if (module.hot) module.hot.accept('./App', () => render(App));
-```
-
-#### .babelrc
-
-```diff
-{
-  "env":{
-    "production": {
-      "presets": [
-        "es2015",
-        "react",
-        "stage-0"
-      ],
-      "plugins": ["transform-decorators-legacy","add-module-exports", "transform-object-assign"]
-    },
-    "development": {
-      "presets": [
-        // http://babeljs.io/docs/plugins/preset-es2015/#modules
-        // 默认将es6选以commonJs类型进行转化
-+        ["es2015", 
-+         { "modules": false }
-+       ],
--       // "es2015",
-        "react",
-        "stage-0"
-      ],
-+      "plugins": ["react-hot-loader/babel"]
-    }
-  }
- 
-  
-}
-```
