@@ -1,4 +1,22 @@
+### 1. 如何启动
 `node webpack.config.simple_entry_hot_replace_with_hotloaderserver/server.js`
+
+### 2. 如何配置
+
+###### webpack config 配置
+  * 入口配置
+
+###### src入口文件配置
+
+###### .babelrc文件配置
+
+###### server.js 文件配置
+  * 添加webpack-hot-middleware 用于开启hmr
+  * webpack-dev-middleware 用于设置hot为true
+
+### 3. 源码实现
+
+#### webpack config源码
 ```diff
 const webpackConfig = {
   // 入口配置
@@ -80,6 +98,8 @@ const webpackConfig = {
 };
 ```
 
+#### server.js源码
+
 ```diff
 
 // 热更新
@@ -105,4 +125,42 @@ app.listen("4000", '0.0.0.0', (err) => {
 });
 
 
+```
+
+#### src源码
+
+```js
+if (module.hot) module.hot.accept('./App', () => render(App));
+```
+
+#### .babelrc
+
+```diff
+{
+  "env":{
+    "production": {
+      "presets": [
+        "es2015",
+        "react",
+        "stage-0"
+      ],
+      "plugins": ["transform-decorators-legacy","add-module-exports", "transform-object-assign"]
+    },
+    "development": {
+      "presets": [
+        // http://babeljs.io/docs/plugins/preset-es2015/#modules
+        // 默认将es6选以commonJs类型进行转化
++        ["es2015", 
++         { "modules": false }
++       ],
+-       // "es2015",
+        "react",
+        "stage-0"
+      ],
++      "plugins": ["react-hot-loader/babel"]
+    }
+  }
+ 
+  
+}
 ```

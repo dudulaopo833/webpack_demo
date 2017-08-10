@@ -3,8 +3,7 @@
 
 ### 2.注意点
 HtmlWebpackPlugin不能和该插件一起使用，如果想使用该插件，请使用自建服务器，参考
-
-
+[react hot loader server部署](https://github.com/chenzhiwei199/webpack_demo/tree/master/webpack.config.simple_entry_hot_replace_with_hotloaderserver)
 ### 3.如何配置
 
 #### webpack config 配置
