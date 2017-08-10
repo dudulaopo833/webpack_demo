@@ -57,8 +57,7 @@ const webpackConfig = {
       {
         test: /\.js$/,
         use: [
-          // react-hot-loader 3.0 写法
-          'react-hot-loader/webpack',
+          // 'react-hot-loader/webpack', 如果不想在.babelrc文件中配置react-hot-loader/babel，可以在这里配置
            'babel-loader',
         ],
         exclude: /node_modules/,

@@ -15,7 +15,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   hot: true,
   historyApiFallback: true
-  // publicPath: 'dist'
 }));
 
 // 启动服务

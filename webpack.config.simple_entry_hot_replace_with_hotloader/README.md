@@ -1,13 +1,11 @@
 ### 1.如何启动
 `webpack-dev-server --config webpack.config.simple_entry_hot_replace_with_hotloader`
 
-不能和这个一起用new HtmlWebpackPlugin({ 
-        // 输出文件名字及路径
-      filename: 'index.html',
-      template: 'index.html'
-    }),
+### 2.注意点
+HtmlWebpackPlugin不能和该插件一起使用，如果想使用该插件，请使用自建服务器，参考
 
-### 2.如何配置
+
+### 3.如何配置
 
 #### webpack config 配置
   * 入口配置
@@ -30,6 +28,8 @@ const webpackConfig = {
   // 入口配置
   entry: [
 +    'react-hot-loader/patch',
++    'webpack-dev-server/client?http://0.0.0.0:4000', // WebpackDevServer host and port
++    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './src/React_hot_loader/index.js'
   ],
   // Webpack config options on how to obtain modules

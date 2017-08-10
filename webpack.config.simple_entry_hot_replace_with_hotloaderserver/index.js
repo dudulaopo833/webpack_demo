@@ -34,11 +34,11 @@ const webpackConfig = {
     // 碰到错误warning但是不停止编译
     new webpack.NoEmitOnErrorsPlugin(), 
     // 生成html文件
-    // new HtmlWebpackPlugin({ 
-    //     // 输出文件名字及路径
-    //   filename: 'index.html',
-    //   template: 'index.html'
-    // }),
+    new HtmlWebpackPlugin({ 
+        // 输出文件名字及路径
+      filename: 'index.html',
+      template: 'index.html'
+    }),
     // new webpack.NamedModulesPlugin(),
   
   ],

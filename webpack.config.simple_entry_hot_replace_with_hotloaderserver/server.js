@@ -18,9 +18,9 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 app.use(require("webpack-hot-middleware")(compiler));
 
-app.get('*', (request, response) => {
-  response.sendFile(path.resolve(defaultConfig.root, 'index.html'));
-});
+// app.get('*', (request, response) => {
+//   response.sendFile(path.resolve(defaultConfig.root, 'index.html'));
+// });
 
 // 启动服务
 app.listen("4000", '0.0.0.0', (err) => {
