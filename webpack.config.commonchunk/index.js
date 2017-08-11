@@ -2,16 +2,21 @@ const webpack = require('webpack');
 const path = require('path');
 const config = require('../config.js');
 const codeDir = "src";
-const buildPath = path.resolve(config.root, codeDir,'dist/base');
+const buildPath = path.resolve(config.root, codeDir,'dist/commonchunk');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const webpackConfig = {
   devtool: 'eval',
   // 入口配置
-  entry: './src/A/index.js',
+  entry: {
+    vendor: ['react','react-dom'],
+    a: './src/A/index.js',
+    b: './src/A/index.js',
+    c: './src/A/index.js',
+  },
   output: {
     path: buildPath, // 输出文件路径
-    filename: 'app.js', // 输出文件名字
+    filename: '[name].js', // 输出文件名字
     chunkFilename: '[chunkhash].js' // chunk文件名字
   },
   // Webpack config options on how to obtain modules
@@ -36,6 +41,22 @@ const webpackConfig = {
       filename: 'index.html',
       template: 'index.html'
     }),
+    // 如果有其他CommonsChunkPlugin生成的文件，将会引入
+    // - If chunk has the name as specified in the chunkNames it is put in the list
+    // - If no chunk with the name as given in chunkNames exists a new chunk is created and added to the list
+    // 大概意思就是如果name在entry里面有，那就加入一个列表，如果entry里面没有，
+    // 那么就创建一个新chunk列表,如果chunks里面相同模块代码出现次数超过minChunks,那就添加到这个新创建的list里面。
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "common",
+      chunks: ["a", "b"], //需要合并的文件
+      // minChunks:3 //意味着最少在出现过多少次才将其打入commons中
+    }),
+    //如果
+    new webpack.optimize.CommonsChunkPlugin({
+      children: true,
+      name: "vendor",
+      minChunks: Infinity
+    })
   ],
   module: {
     rules: [

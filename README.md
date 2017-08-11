@@ -187,12 +187,72 @@ module.exports = {
 }
 ```
 
-[demo postcss配置]()
-
 
 ### css文件抽离 
 
-(demo)[]
+
+[demo](https://github.com/chenzhiwei199/webpack_demo/tree/master/webpack.config.extractText)
+
+###### webpack config 配置
+插件配置
+
+```diff
+
++const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
++new ExtractTextPlugin('style.css'), //名字配置
+    { 
+        test: /\.less/,
+_        use: [
+_          'style-loader',
+_          'css-loader',
+_          'less-loader'
+_        ]
++        use: ExtractTextPlugin.extract({
++          fallback: 'style-loader',
++          use: ['css-loader', 'less-loader']
++        })
+      },
+      {
+        test: /\.css$/,
+-        use: 'style-loader!css-loader',
++         use: ExtractTextPlugin.extract({
++          fallback: 'style-loader',
++          use: ['css-loader']
++        })
+      },
+```
+###### .postcss.config.js文件配置
+
+```js
+module.exports = {
+  plugins: {
+    'postcss-import': {}, // 能够使用import语法 @import "cssrecipes-defaults"; 
+    'postcss-cssnext': {}, //PostCSS-cssnext是一个PostCSS插件，可以帮助您使用最新的CSS语法。 它将CSS规范转换为更兼容的CSS，因此您不需要等待浏览器支持。
+    'cssnano': {}
+  }
+}
+```
+
+### 公共文件抽取
+
+公共文件抽取一般依靠 CommonChunkPlguin 和 Dllplugin这两个插件.
+
+- 共同点：
+
+	- 都可以抽出公共模块
+- 不同点：
+
+	- CommonChunkPlguin
+	
+		1. CommonChunkPlguin可以抽出多个模块间公共模块
+		2. 配置了HtmlWebpackPlugin后，不需要手动在html中导入
+	- dllPlugin
+
+		1. dllPlugin 可以在multi compliler（多个webpack config 文件） 中使用
+		2. dllPlugin 生成的文件相当于独立的存在，就像jQuery一样，需要你在html进行引入之后才能使用。
+
+
 ## 二、配置详解
 ### 1.context配置
 
@@ -232,10 +292,10 @@ path.resolve(__dirname, "src")
 
 * chunkFilename 配置生成的chunk文件的名字
 
-	* [name] 默认文件没有名字的话，该值就等于id
-	* [hash] 每次生成hash值都不一样
-	* [chunkhash] 文件没有变化的话生成的hash值不变,可用来做热更新
-	* [id] 内部的chunk id
+	+ [name] 默认文件没有名字的话，该值就等于id
+	- [hash] 每次生成hash值都不一样
+	- [chunkhash] 文件没有变化的话生成的hash值不变,可用来做热更新
+	- [id] 内部的chunk id
 	
 * Filename 配置生成的chunk文件的名字
 ### 4.Moudle

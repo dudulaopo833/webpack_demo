@@ -5,7 +5,7 @@ const codeDir = "src";
 const buildPath = path.resolve(config.root, codeDir,'dist/extractText');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// webpack-dev-server --config webpack.config.simple_entry
+
 const webpackConfig = {
   // 入口配置
   entry: [
