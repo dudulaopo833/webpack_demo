@@ -6,23 +6,7 @@ const buildPath = path.resolve(config.root, codeDir,'dist/dll');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
-const webpackConfig = [
-{
-  name: "vendor",
-  entry: ["react", "react-dom"],
-  output: {
-    path: buildPath, // 输出文件路径
-    filename: "vendor.js",
-    library: "vendor_[hash]"
-  },
-  plugins: [
-    new webpack.DllPlugin({
-      name: "vendor_[hash]",
-      path: path.resolve(buildPath, "manifest.json")
-    })
-  ]
-},
-{
+const webpackConfig = {
   name: "app",
   dependencies: ["vendor"],
   devtool: 'eval',
@@ -34,7 +18,7 @@ const webpackConfig = [
     path: buildPath, // 输出文件路径
     filename: '[name].js', // 输出文件名字
     chunkFilename: '[chunkhash].js', // chunk文件名字
-   
+
   },
   // Webpack config options on how to obtain modules
   resolve: {
@@ -97,7 +81,6 @@ const webpackConfig = [
       }
     ],
   },
-}
-];
+};
 
 module.exports = webpackConfig;

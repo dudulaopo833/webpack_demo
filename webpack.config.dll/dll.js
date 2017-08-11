@@ -5,8 +5,7 @@ const codeDir = "src";
 const buildPath = path.resolve(config.root, codeDir,'dist/dll');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // webpack-dev-server --config webpack.config.simple_entry
-const webpackConfig = [
-{
+const webpackConfig = {
   name: "vendor",
   entry: ["react", "react-dom"],
   output: {
@@ -20,7 +19,6 @@ const webpackConfig = [
       path: path.resolve(buildPath, "manifest.json")
     })
   ]
-}
-];
+};
 
 module.exports = webpackConfig;
