@@ -153,7 +153,7 @@ module.exports = [{
 ```
 ### 兼容多浏览器，添加postcss-loader
 
-[demo](https://github.com/chenzhiwei199/webpack_demo)
+[demo](https://github.com/chenzhiwei199/webpack_demo/webpack.config.postcss)
 
 添加postcss-loader，需要做如下配置
 ###### webpack config 配置
