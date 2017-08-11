@@ -1,4 +1,5 @@
 import React from 'react';
+import './Layout.less';
 
 export default function Layout({ children }) {
   return (

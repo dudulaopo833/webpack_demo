@@ -65,6 +65,10 @@ const webpackConfig = {
         ]
       },
       {
+        test: /\.css$/,
+        use: 'style-loader!css-loader!postcss-loader',
+      },
+      {
         test: /\.txt$/,
         use: 'raw-loader',
       },
@@ -72,10 +76,7 @@ const webpackConfig = {
         test: /\.md$/,
         use: 'raw-loader',
       },
-      {
-        test: /\.css$/,
-        use: 'style-loader!css-loader!postcss-loader',
-      },
+    
        {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
         loader: 'url-loader?limit=8192&name=[name]-[hash].[ext]'

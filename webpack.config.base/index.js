@@ -2,15 +2,13 @@ const webpack = require('webpack');
 const path = require('path');
 const config = require('../config.js');
 const codeDir = "src";
-const buildPath = path.resolve(config.root, codeDir,'dist/simple_entry');
+const buildPath = path.resolve(config.root, codeDir,'dist/base');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // webpack-dev-server --config webpack.config.simple_entry
 const webpackConfig = {
   devtool: 'eval',
   // 入口配置
-  entry: [
-    './A/index.js',
-  ],
+  entry: './src/A/index.js',
   output: {
     path: buildPath, // 输出文件路径
     filename: 'app.js', // 输出文件名字
@@ -20,6 +18,10 @@ const webpackConfig = {
   resolve: {
     // 当你reuire时，不需要加上以下扩展名
     extensions: ['.js', '.md', '.txt'],
+  },
+  devServer: {
+    port: '4000',
+    inline: true
   },
   plugins: [
     // 防止加载所有地区时刻
@@ -54,9 +56,12 @@ const webpackConfig = {
         use: [
           'style-loader',
           'css-loader',
-          'postcss-loader',
           'less-loader'
         ]
+      },
+      {
+        test: /\.css$/,
+        use: 'style-loader!css-loader',
       },
       {
         test: /\.txt$/,
@@ -66,10 +71,7 @@ const webpackConfig = {
         test: /\.md$/,
         use: 'raw-loader',
       },
-      {
-        test: /\.css$/,
-        use: 'style-loader!css-loader!postcss-loader',
-      },
+     
        {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
         loader: 'url-loader?limit=8192&name=[name]-[hash].[ext]'
