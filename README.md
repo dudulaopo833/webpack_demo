@@ -8,11 +8,16 @@ demo
 |=webpack.config.js
 ```
 
-## 一、目的
-1. 单入口打包 （包含postcss-loader配置）
-2. 多入口打包
-3. 开发模式 热替换配置
-4. 多入口热替换配置
+## 一、打包升级
+1. [基础打包配置]()
+2. 高级打包配置(打包多种文件)
+3. 多入口打包（生成1个bundlle.js）
+4. 多入口打多个包 （生成多个bundle.js）
+5. 兼容多浏览器，添加postcss-loader
+6. 局部刷新，添加热替换配置（hot replace）
+7. css文件抽离 
+8. 公共文件抽取
+
 5. multi compl热替换配置
 6. css文件抽取
 6. common chunk配置
@@ -26,6 +31,31 @@ demo
 9. 增量更新
 10. 代码分离
 
+### 基础打包配置
+
+1. [开发模式(devtool)](https://webpack.js.org/configuration/devtool/)  [demo]()
+
+This option controls if and how source maps are generated.
+
+开发建议使用eval模式，缺点是无法正确显示行号，想要正确显示行号，可以时候用source-map或者eval-source-map
+
+生产环境： 建议使用cheap-module-source-map
+
+2. 入口配置(entry)
+
+```js
+	string | [string] | object { <key>: string | [string] } | (function: () => string | [string] | object { <key>: string | [string] })
+```
+
+3. 输出配置(output)
+4. resolve
+5. 插件(plugin)
+6. moudles
+
+### 高级打包配置(打包多种文件)
+### 多入口打包（生成1个bundlle.js）
+### 多入口打多个包 （生成多个bundle.js）
+### 兼容多浏览器，添加postcss-loader
 
 ## 二、配置详解
 ### 1.context配置
