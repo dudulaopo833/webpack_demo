@@ -133,7 +133,7 @@ demo
 
 这个是webpack 3.1.0新出来的配置方式,可以用来解决多个入口文件，打包成多个文件夹的问题。
 
-[demo ]()
+[demo 将多个入口打成多个文件夹 ](https://github.com/chenzhiwei199/webpack_demo/tree/master/webpack.config.multi_compiler)
 
 ```js
 module.exports = [{
@@ -151,6 +151,8 @@ module.exports = [{
 }]
 ```
 ### 兼容多浏览器，添加postcss-loader
+
+[demo postcss配置]()
 
 ## 二、配置详解
 ### 1.context配置
