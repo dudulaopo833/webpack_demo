@@ -14,9 +14,10 @@ demo
 3. 多入口打包（生成1个bundlle.js）
 4. 多入口打多个包 （生成多个bundle.js）
 5. 兼容多浏览器，添加postcss-loader
-6. 局部刷新，添加热替换配置（hot replace）
-7. css文件抽离 
-8. 公共文件抽取
+6. css文件抽离 
+7. 公共文件抽取
+7. 局部刷新，添加热替换配置（hot replace）
+
 
 5. multi compl热替换配置
 6. css文件抽取
@@ -152,7 +153,8 @@ module.exports = [{
 ```
 ### 兼容多浏览器，添加postcss-loader
 
-[demo]()
+[demo](https://github.com/chenzhiwei199/webpack_demo)
+
 添加postcss-loader，需要做如下配置
 ###### webpack config 配置
 插件配置
@@ -187,6 +189,10 @@ module.exports = {
 
 [demo postcss配置]()
 
+
+### css文件抽离 
+
+(demo)[]
 ## 二、配置详解
 ### 1.context配置
 
