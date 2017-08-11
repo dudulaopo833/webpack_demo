@@ -1,8 +1,11 @@
 import React from 'react';
-import {render} from 'react-dom';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-export default function startApp(item) {
-    render( <div>{item}</div>, document.getElementById('app'));
-}
-
-if (module.hot) module.hot.accept('./App', () => render(App));
+export default Component =>
+  ReactDOM.render(
+    <Provider>
+      <Component />
+    </Provider>,
+    document.getElementById('app')
+  );

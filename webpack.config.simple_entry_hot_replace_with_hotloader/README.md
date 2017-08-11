@@ -14,15 +14,8 @@ HtmlWebpackPlugin不能和该插件一起使用，如果想使用该插件，请
 
 ### 源码实现
 #### webpack config源码
-```diff
-const webpack = require('webpack');
-const path = require('path');
-const config = require('../config.js');
-const codeDir = "src";
-const webpackOutputPath = path.resolve(codeDir, 'dist/simple_entry_hot_replace_with_hotloader');
-const buildPath = path.resolve(config.root,webpackOutputPath);
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+```diff
 const webpackConfig = {
   // 入口配置
   entry: [

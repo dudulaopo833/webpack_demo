@@ -1,5 +1,7 @@
-import common from '../common';
+
+import React from 'react';
 import App from './App';
+import render from '../common/initial';
+
 
 render(App);
-if (module.hot) module.hot.accept('./App', () => render(App));

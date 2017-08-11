@@ -24,6 +24,7 @@ const webpackConfig = {
   },
   devServer: {
     port: '4000',
+    host: 'localhost',
     inline: true,
   },
   plugins: [

@@ -6,6 +6,7 @@ const buildPath = path.resolve(config.root, codeDir,'dist/simple_entry');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // webpack-dev-server --config webpack.config.simple_entry
 const webpackConfig = {
+  devtool: 'eval',
   // 入口配置
   entry: [
     './A/index.js',
@@ -20,9 +21,6 @@ const webpackConfig = {
     // 当你reuire时，不需要加上以下扩展名
     extensions: ['.js', '.md', '.txt'],
   },
-  devtool: 'eval',
-  // 输出配置
-  
   plugins: [
     // 防止加载所有地区时刻
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
